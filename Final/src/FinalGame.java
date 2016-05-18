@@ -12,7 +12,8 @@ public class FinalGame extends Canvas
 		static boolean coin1=true;
 		static int coinsCollected=0;
 		static int mj;
-		static boolean bounce=true;
+		static boolean gameOver=true;
+		static boolean coin2=true;
 	    public FinalGame() {
 	        setSize(new Dimension(500, 500));
 	        setBackground(Color.black);
@@ -23,19 +24,39 @@ public class FinalGame extends Canvas
 	            }
 	        });
 	    }
-	    @Override
+
 		public void paint(Graphics g)
 			{
-				int c1x=20; int c1y=20;
+				int c1x=50; int c1y=50;
+				int fontSize=50;
+				g.setColor(Color.red);
+				g.fillRect(0, 0, 20, 500);
 				
+				g.setColor(Color.red);
+				g.fillRect(0, 0, 500, 20);
+				
+				g.setColor(Color.red);
+				g.fillRect(490, 0, 20, 500);
+				
+				g.setColor(Color.red);
+				g.fillRect(0, 490, 510, 20);
 				
 				g.setColor(Color.white);
 				g.fillRect(x,y,20,20);
 				
 				g.setColor(Color.yellow);
-				g.fillOval(c1x, c1y, 20, 20);
-				
-				if((x==c1x)&&(c1y==20))
+				g.fillRect(c1x, c1y, 20, 20);
+				if((x==20)||(x==470)||(y==20)||(y==470))
+					{
+						while(gameOver)
+							{
+						g.setColor(Color.white);
+						Font f=new Font("fantsy", Font.PLAIN, fontSize);
+						g.setFont(f);
+						g.drawString("GAME OVER", 100, 250);
+							}
+					}
+				if((x>=50)&&(x<=70)&&(y>=50)&&(y<=70))
 					{
 						coin1=false;
 						
@@ -43,12 +64,39 @@ public class FinalGame extends Canvas
 				if(coin1==false)
 					{
 						g.setColor(Color.black);
-						g.fillOval(20, 20, 20, 20);
+						g.fillRect(50, 50, 20, 20);
 						
+						g.setColor(Color.red);
+						g.fillRect(200, 200, 100, 100);
 						
+						g.setColor(Color.yellow);
+						g.fillRect(450, 450, 20, 20);
+						if((x>=180)&&(x<=280)&&(y>=180)&&(y<=280))
+							{
+								while(gameOver)
+									{
+								g.setColor(Color.white);
+								Font f=new Font("fantsy", Font.PLAIN, fontSize);
+								g.setFont(f);
+								g.drawString("GAME OVER", 100, 250);
+									}
+							}
+						if((x>450)&&(x<470)&&(y>450)&&(y<470))
+							{
+								coin2=false;
+								
+							}
+					}	
+				if(coin2==false)
+					{
+						g.setColor(Color.black);
+						g.fillRect(450, 450, 20, 20);
+					}
 					
-					int j=230;
-					mj=5;
+					
+					//int j=230;
+					//mj=5;
+					/*
 					while(bounce)
 						{		
 							
@@ -74,38 +122,40 @@ public class FinalGame extends Canvas
 							
 							
 						}
+						*/
 					mj=-mj;
 					
 							
-					}
+					
 
 				g.setColor(Color.white);
 				g.fillRect(x,y,20,20);
-				
 			}
+			
 		
 		public void moveSquare(KeyEvent e)
 			{
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_DOWN:
-						y += 5;
+						y += 1;
 						break;
 					case KeyEvent.VK_UP:
-						y-= 5;
+						y-= 1;
 						break;
 					case KeyEvent.VK_LEFT:
-						x-=5;
+						x-=1;
 						break;
 					case KeyEvent.VK_RIGHT:
-						x+=5;
+						x+=1;
 						break;
 				}
+				
 				repaint();
 			}
 		public static void main(String[] args)
 			{
-					JFrame frame = new JFrame("Basic Game");
+					JFrame frame = new JFrame("Final Game");
 			        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    
 			        FinalGame ex = new FinalGame();
@@ -121,7 +171,7 @@ public class FinalGame extends Canvas
 			{
 	        try
 					{
-					Thread.sleep(15);
+					Thread.sleep(50);
 					} catch (InterruptedException e)
 					{
 					e.printStackTrace();
